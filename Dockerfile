@@ -1,11 +1,10 @@
 FROM openjdk:17-jdk-slim
 
+# Set working directory inside the container
 WORKDIR /app
 
-COPY . .
+# Copy only the built JAR file into the container
+COPY target/project_1-1.0-SNAPSHOT.jar app.jar
 
-RUN apt-get update && \
-    apt-get install -y maven && \
-    mvn clean package -DskipTests
-
-CMD ["java", "-jar", "target/project_1-1.0-SNAPSHOT.jar"]
+# Run the JAR file
+CMD ["java", "-jar", "app.jar"]
